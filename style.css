@@ -1,0 +1,142 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+main{
+  place-self: center;
+  background-color: antiquewhite;
+  padding: 2rem 2rem;
+  border-radius: 14px;
+  height: 90vh;
+}
+ul, li, h1, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+#summary{
+  color: gray;
+  padding: 10px 5px;
+}
+.add-task-container{
+  padding: 0.5rem;
+  background-color: #f9f9ff;
+  margin: 0 4px;
+  border-radius: 10px;
+  display: flex;
+}
+#task{
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #86577f;
+    background-color: #ebe5ff;
+    border: none;
+    border-radius: 10px;
+    text-align: left;
+    outline: 0;
+    margin: none;
+    cursor: pointer;
+    transition: all;
+}
+#task:hover{
+  color: black;
+}
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #f5f5ff;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.task-form input,
+.task-form textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+} 
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.form-buttons button,.left select{
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  gap: 6px;
+}
+#cancel-btn {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+#content{
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 20px;
+}
+.tasks-classified{
+  padding: 1rem;
+  color: #86577f;
+  background-color: #ebe5ff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all;
+  margin: auto;
+  list-style: none;
+}
+.category{
+  height: 460px;
+  width: 180px;
+  text-align: center;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+::-webkit-scrollbar-button{
+  display: none;
+}
+.card{
+  background-color: #f9f9ff;
+  color: #7b5193;
+  margin: 0.5rem 0.3rem;
+  padding: 0.2rem 0.5rem;
+  text-align: start;
+  border-radius: 10px;
+}
+.tool-container{
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0.1rem 0;
+}
+.line-through{
+  text-decoration: line-through;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.modal > div {
+  width: 100%;
+  max-width: 600px; /* optional, to keep modal content narrow */
+  background-color: #f5f5ff;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.hidden{
+  display: none;
+}

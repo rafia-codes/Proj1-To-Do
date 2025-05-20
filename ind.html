@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+    <main>
+      <h1>Task Board</h1>
+      <h4 id="summary">0 out of 0 tasks done(0%)</h4>
+      <div class="add-task-container" id="add-task">
+        <button id="task">+&nbsp;&nbsp; Add task</button>
+      </div>
+      <form class="task-form hidden" id="add-form">
+        <input type="text" placeholder="Task title" class="title" required>
+        <textarea placeholder="Task description" class="desc"></textarea>
+        <div class="form-buttons">
+          <div>
+            <select class="stage" style="justify-self: left">
+              <option value="To-Do" id="to-do">To-Do</option>
+              <option value="In-Progress" id="in-progress">In Progress</option>
+              <option value="Task-Done" id="task-done">Task Done</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" class="cancel-btn">
+              Cancel
+            </button>
+            <button type="submit" style="background-color: black; color: white" id="add">
+              Add
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="modal hidden">
+        <div>
+          <form action="" class="task-form" id="edit-form">
+            <input type="text" required/>
+            <textarea name="" id=""></textarea>
+            <div class="form-buttons">
+          <div>
+            <select id="stage" style="justify-self: left">
+              <option value="To-Do" id="to-do">To-Do</option>
+              <option value="In-Progress" id="in-progress">In Progress</option>
+              <option value="Task-Done" id="task-done">Task Done</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" class="cancel-btn">
+              Cancel
+            </button>
+            <button type="submit" style="background-color: black; color: white" id="edit">
+              Edit
+            </button>
+          </div>
+        </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="content">
+        <div class="add-task-container">
+          <ul class="tasks-classified category" id="To-Do">
+            To-Do
+          </ul>
+        </div>
+        <div class="add-task-container">
+          <ul class="tasks-classified category" id="In-Progress">
+            In Progress
+          </ul>
+        </div>
+        <div class="add-task-container">
+          <ul class="tasks-classified category" id="Task-Done">
+            Tasks Done
+          </ul>
+        </div>
+      </div>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
