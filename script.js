@@ -1,5 +1,35 @@
 let tasks=[];
 let editTaskID=null;
+function initDB(){
+    const request=indexedDB.open("TasksDB",1);
+    request.onerror=()=>{
+        tasks=JSON.parse(localStorage.getItem("tasks"))|| [];
+        tasks.forEach((task)=>rendertask(task));
+    }
+    request.onupgradeneeded=()=>{
+        let db=request.result;
+        if(!db.objectStoreNames.contains("tasks")){
+        let store=db.createObjectStore("tasks",{keyPath:'id'});
+        store.createIndex('title','title',{unique:false});
+        store.createIndex('stage','stage',{unique:false});
+        }
+    }
+    request.onsuccess=()=>{
+        let db=request.result;
+        loadTasks(db);
+    }
+}
+function loadTasks(db){   
+    let transaction=db.transaction("tasks","readonly");
+    let store=transaction.objectStore("tasks");
+    let allTasks=store.getAll();
+    allTasks.onsuccess=()=>{
+        tasks=allTasks.result || [];
+        tasks.forEach((task)=>rendertask(task));
+    }
+    updateSummary();
+    dragAndDrop();
+}
 function handleform(){
     document.querySelector('#add-form').classList.remove('hidden');
     document.querySelector('#add-task').classList.add('hidden');
@@ -68,7 +98,8 @@ function rendertask(task){
     ul.appendChild(li);
     li.addEventListener('dragstart',(e)=>{
         e.dataTransfer.setData('text/plain',JSON.stringify(task));
-    })
+    });
+    updateSummary();
 }
 function deleteTask(id){
     tasks=tasks.filter(task=>task.id!==id);
@@ -89,7 +120,23 @@ function editTask(id){
     editTaskID=id;
 }
 function savetasks(){
-    localStorage.setItem("tasks",JSON.stringify(tasks));
+    const request=window.indexedDB.open("TasksDB",1);//db,version
+    //error
+    request.onerror=()=>{
+        localStorage.setItem("tasks",JSON.stringify(tasks));
+    }
+    request.onsuccess=()=>{
+        let db=request.result;
+        let transaction=db.transaction("tasks","readwrite");
+
+        let store=transaction.objectStore("tasks");
+
+        store.clear().onsuccess = () => {
+            tasks.forEach(task => {
+                store.put(task);
+            });
+        };
+    }
 }
 function updateSummary(){
     let total=tasks.length,done=0;
@@ -122,14 +169,11 @@ function dragAndDrop(){
     })
    }
 )};
-document.querySelector('#task').addEventListener('click',()=> handleform());
-document.querySelector('#add').addEventListener('click',(e)=>handletask(e,false));
-document.querySelectorAll('.cancel-btn').forEach((cancel)=>cancel.addEventListener('click',handleCancelbtn));
-document.querySelector('#edit').addEventListener('click',(e)=>handletask(e,true));
 
 document.addEventListener('DOMContentLoaded',()=>{
-    tasks=JSON.parse(localStorage.getItem("tasks"))|| [];
-    tasks.forEach((task)=>rendertask(task));
-    updateSummary();
-    dragAndDrop();
+    initDB();
+    document.querySelector('#add-task').addEventListener('click',()=> handleform());
+    document.querySelector('#add').addEventListener('click',(e)=>handletask(e,false));
+    document.querySelectorAll('.cancel-btn').forEach((cancel)=>cancel.addEventListener('click',handleCancelbtn));
+    document.querySelector('#edit').addEventListener('click',(e)=>handletask(e,true));
 })
